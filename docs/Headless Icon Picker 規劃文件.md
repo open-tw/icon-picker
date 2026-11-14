@@ -409,10 +409,26 @@ Icon 本身一律加上 `aria-hidden`，名稱放在外層按鈕的 `aria-label`
 
 ### 未決事項
 
-- [ ] State 容器：自寫輕量 store，還是採用 `@tanstack/store`
-- [ ] Lucide metadata 的取得方式：確認 npm 套件是否內附 tags 與 categories，否則改從 Lucide 的 GitHub release 或 repo 取得
+- [x] State 容器：自寫輕量 store（約 30 行），不引入 `@tanstack/store`
+- [x] Lucide metadata 的取得方式：SVG 與 tags 來自 `lucide-static`；categories 與改名資訊不在 npm 套件內，改從同版本 tag 的 Lucide repo tarball 讀取（見 `packages/provider-lucide/scripts/generate.ts`）
 - [ ] 開放範圍：開放全部 Lucide icon，還是只提供 Dashboard 白名單
 - [ ] 最近使用：存在本機，還是存在使用者帳號以便跨裝置同步
 - [ ] 是否需要 SSR：會影響 `<Icon />` 首次渲染要不要同步輸出 SVG
 - [x] 套件 scope：`@open-tw`
 - [x] 發佈位置：公開 npm（`@open-tw` scope，MIT 授權）
+
+## 實作後的決定
+
+第一期實作時，相對於上面規劃的差異與補充：
+
+- **`pascalCodec` 需要傳入對照表**：`pascalCodec({ prefix: 'lucide', names: lucideComponentNames })`。對照表約 78 KB，放在 `@open-tw/icon-provider-lucide/component-names` 獨立子路徑，只有使用 pascal 格式的專案才會打包到。
+- **`aria-selected` 依 WAI-ARIA combobox 模式標示鍵盤焦點所在的 option**；資料庫中目前的值另以 `data-current` 標示，`data-active` 方便寫樣式。
+- **新增的 options**：`defaultValue`（非受控初始值）、`pageSize`（PageUp/PageDown 的列數，預設 5）、`closeOnSelect`（預設 true）、`id`（a11y id 前綴）。
+- **新增的 instance 成員**：`getValue()`、`getSelectedId()`、`getRecentIcons()`、`getItemId()`、`getOptions()`、`setState()`。
+- **`onStateChange` 收到的是算好的完整下一個 state**（仍符合 `Updater<IconPickerState>`）。
+- **IME**：`handleKeyDown` 在 `isComposing` 時不攔截，避免注音選字時的 Enter 被當成選取。
+- **`features` 預設**：search 開、categories 開、recents 關。
+- **中文搜尋對照表**：不做。
+- **React 同時支援 18 與 19**：只用兩版共通的 API（`useSyncExternalStore`、`useId`、`forwardRef`、`Context.Provider`），不使用 `use()`、ref-as-prop、`<Context value>`。
+- **`useIconPicker` 回傳的物件在 state、value、`columns`、`filter` 改變時換新參照**，方法維持穩定。這是為了讓 React Compiler 與 `memo()` 正確重新渲染（`packages/react/test/react-compiler.test.tsx` 以真正的 compiler 驗證）。
+- **發佈**：公開 npm、`@open-tw` scope、MIT 授權、ESM only；四個套件以 changesets `fixed` 一起升版。
