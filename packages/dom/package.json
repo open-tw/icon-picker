@@ -1,0 +1,42 @@
+{
+  "name": "@open-tw/icon-picker-dom",
+  "version": "0.1.0",
+  "description": "Vanilla DOM helpers for @open-tw/icon-picker-core: renderIcon, mountIcon.",
+  "keywords": [
+    "icon-picker",
+    "headless",
+    "icons",
+    "svg",
+    "vanilla"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-tw/icon-picker.git",
+    "directory": "packages/dom"
+  },
+  "homepage": "https://github.com/open-tw/icon-picker/tree/main/packages/dom#readme",
+  "bugs": "https://github.com/open-tw/icon-picker/issues",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@open-tw/icon-picker-core": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

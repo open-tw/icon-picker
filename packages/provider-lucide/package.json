@@ -1,0 +1,50 @@
+{
+  "name": "@open-tw/icon-provider-lucide",
+  "version": "0.1.0",
+  "description": "Lucide icon provider for @open-tw/icon-picker-core (data generated at build time).",
+  "keywords": [
+    "icon-picker",
+    "lucide",
+    "icons",
+    "svg"
+  ],
+  "license": "MIT AND ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-tw/icon-picker.git",
+    "directory": "packages/provider-lucide"
+  },
+  "homepage": "https://github.com/open-tw/icon-picker/tree/main/packages/provider-lucide#readme",
+  "bugs": "https://github.com/open-tw/icon-picker/issues",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./component-names": {
+      "types": "./dist/component-names.d.ts",
+      "import": "./dist/component-names.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "src",
+    "generated"
+  ],
+  "scripts": {
+    "generate": "node scripts/generate.ts",
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@open-tw/icon-picker-core": "workspace:*"
+  },
+  "devDependencies": {
+    "lucide-static": "1.72.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Icon Picker · Vanilla</title>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Headless Icon Picker — Vanilla recipe</h1>
+        <p>
+          <code>@open-tw/icon-picker-core</code> + <code>@open-tw/icon-picker-dom</code> +
+          <code>@tanstack/virtual-core</code>，Lucide <span id="lucide-version"></span>
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="row">
+          <label>
+            儲存格式（codec）
+            <select id="codec">
+              <option value="prefixed">prefixedCodec() → lucide:chart-bar</option>
+              <option value="pascal">pascalCodec() → ChartBar</option>
+              <option value="kebab">kebabCodec() → chart-bar</option>
+            </select>
+          </label>
+        </div>
+        <h2>Dashboard 小工具</h2>
+        <div id="widgets" class="cards"></div>
+      </section>
+
+      <section class="panel">
+        <h2>編輯「<span id="editing"></span>」的 icon</h2>
+        <div id="icon-field" class="ip"></div>
+        <p class="hint">
+          ↑↓←→ 移動、Home/End 列首列尾、Ctrl+Home/End 全部首尾、PageUp/PageDown 翻頁、Enter 選取、Esc 清空搜尋／關閉
+        </p>
+      </section>
+
+      <section class="panel two">
+        <div>
+          <h2>資料庫內容</h2>
+          <pre id="db"></pre>
+        </div>
+        <div>
+          <h2>事件</h2>
+          <pre id="log"></pre>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

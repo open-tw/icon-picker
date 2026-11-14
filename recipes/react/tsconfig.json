@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@open-tw/icon-picker-core": ["../../packages/core/src/index.ts"],
+      "@open-tw/icon-picker-dom": ["../../packages/dom/src/index.ts"],
+      "@open-tw/icon-picker-react": ["../../packages/react/src/index.ts"],
+      "@open-tw/icon-provider-lucide": ["../../packages/provider-lucide/src/index.ts"],
+      "@open-tw/icon-provider-lucide/component-names": ["../../packages/provider-lucide/src/component-names.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

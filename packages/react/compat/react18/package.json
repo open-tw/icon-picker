@@ -1,0 +1,20 @@
+{
+  "name": "@open-tw/icon-picker-react-compat-18",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Runs the @open-tw/icon-picker-react test suite and type check against React 18.",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p ."
+  },
+  "devDependencies": {
+    "@open-tw/icon-picker-core": "workspace:*",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

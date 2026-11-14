@@ -2,6 +2,8 @@
 
 依照《Headless Icon Picker 規劃文件》實作的第一期：core、vanilla 與 React（18／19）。
 
+線上 demo：<https://open-tw.github.io/icon-picker/>
+
 ## 套件
 
 | 套件 | 路徑 | 內容 |
@@ -73,13 +75,17 @@ pnpm check:packages     # 實際打包並檢查：LICENSE、README、無 .tsbuil
 CI（`.github/workflows/`）：
 
 - `ci.yml`：型別檢查、build、React 19／18 測試、`check:packages`
-- `release.yml`：main 上有待發佈的 changeset 時開「Version Packages」PR，合併後自動 `changeset publish`（需要 repo secret `NPM_TOKEN`）
+- `release.yml`：main 上有待發佈的 changeset 時開「Version Packages」PR，合併後自動 `changeset publish`（需要 repo secret `NPM_TOKEN`），並附上 npm provenance
+- `pages.yml`：把 `recipes/vanilla`、`recipes/react` 建置後部署到 GitHub Pages（首頁在 `.github/pages/index.html`）
+
+> 注意：`release.yml` 在每次 push 到 main 時執行。只要設好 `NPM_TOKEN`，而 npm 上還沒有目前的版本，push 後就會直接發佈。
 
 ### 第一次發佈前的待辦
 
-- [ ] 建立 git repo 並推上 GitHub（changesets 依賴 git 歷史）
+- [x] 建立 git repo 並推上 GitHub（changesets 依賴 git 歷史）
 - [ ] 在 npm 建立（或確認擁有）`open-tw` organization
 - [ ] 在 GitHub repo 設定 `NPM_TOKEN` secret（npm automation／granular token，需有 `@open-tw` 的發佈權限）
-- [ ] 在四個套件的 package.json 填上 `repository`、`homepage`、`bugs`，再把 `release.yml` 的 `NPM_CONFIG_PROVENANCE` 改成 `true`
+- [x] 在四個套件的 package.json 填上 `repository`、`homepage`、`bugs`，再把 `release.yml` 的 `NPM_CONFIG_PROVENANCE` 改成 `true`
+- [ ] 在 GitHub repo Settings → Pages 把 Source 設成「GitHub Actions」（demo 才會部署）
 
 目前版本為 `0.1.0`，第一次發佈不需要 changeset：`changeset publish` 會直接發佈 registry 上還沒有的版本。

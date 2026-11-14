@@ -1,0 +1,41 @@
+{
+  "name": "open-tw-icon-picker",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "build": "tsc -b packages/core packages/dom packages/provider-lucide packages/react",
+    "typecheck": "tsc -b packages/core packages/dom packages/provider-lucide packages/react && tsc -p tsconfig.json && tsc -p packages/react/compat/react18 && tsc -p recipes/vanilla --noEmit && tsc -p recipes/react --noEmit",
+    "test": "vitest run && pnpm --filter @open-tw/icon-picker-react-compat-18 test",
+    "test:watch": "vitest",
+    "generate:lucide": "pnpm --filter @open-tw/icon-provider-lucide generate",
+    "dev": "pnpm --filter @open-tw/recipe-vanilla dev",
+    "clean": "rm -rf packages/*/dist packages/*/*.tsbuildinfo",
+    "test:react18": "pnpm --filter @open-tw/icon-picker-react-compat-18 test",
+    "dev:react": "pnpm --filter @open-tw/recipe-react dev",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "check:packages": "node scripts/check-packages.mjs",
+    "release": "pnpm build && pnpm check:packages && changeset publish"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@babel/core": "^7.29.13",
+    "@babel/preset-typescript": "^7.29.7",
+    "@changesets/cli": "^3.0.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^26.6.6",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "happy-dom": "^21.0.4",
+    "publint": "^0.3.25",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-tw/icon-picker.git"
+  },
+  "homepage": "https://github.com/open-tw/icon-picker#readme",
+  "bugs": "https://github.com/open-tw/icon-picker/issues"
+}

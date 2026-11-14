@@ -1,0 +1,20 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": [],
+    "paths": {
+      "@open-tw/icon-picker-core": ["../../../core/src/index.ts"],
+      "react": ["./node_modules/@types/react/index.d.ts"],
+      "react/*": ["./node_modules/@types/react/*"],
+      "react-dom": ["./node_modules/@types/react-dom/index.d.ts"],
+      "react-dom/*": ["./node_modules/@types/react-dom/*"],
+      "@testing-library/react": ["./node_modules/@testing-library/react"]
+    }
+  },
+  "include": ["../../src", "../../test"],
+  "exclude": ["../../test/react-compiler.test.tsx", "../../test/fixtures"]
+}

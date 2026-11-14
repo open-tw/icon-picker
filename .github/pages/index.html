@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Headless Icon Picker</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fff;
+        --fg: #1a1a1a;
+        --muted: #666;
+        --border: #ddd;
+        --accent: #2563eb;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111;
+          --fg: #eee;
+          --muted: #999;
+          --border: #333;
+          --accent: #60a5fa;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 16px/1.6 system-ui, sans-serif;
+      }
+      main {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 48px 16px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+      p {
+        margin: 0 0 24px;
+        color: var(--muted);
+      }
+      .demos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .demos a {
+        display: block;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .demos a:hover,
+      .demos a:focus-visible {
+        border-color: var(--accent);
+      }
+      .demos strong {
+        display: block;
+        color: var(--accent);
+      }
+      .demos span {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      h2 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      ul a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Headless Icon Picker</h1>
+      <p>Search, browse by category and pick icons. All behaviour lives in a framework-agnostic core; bring your own UI.</p>
+
+      <div class="demos">
+        <a href="./vanilla/">
+          <strong>Vanilla demo →</strong>
+          <span>core + dom + @tanstack/virtual-core</span>
+        </a>
+        <a href="./react/">
+          <strong>React demo →</strong>
+          <span>core + react + @tanstack/react-virtual</span>
+        </a>
+      </div>
+
+      <h2>Packages</h2>
+      <ul>
+        <li><a href="https://www.npmjs.com/package/@open-tw/icon-picker-core">@open-tw/icon-picker-core</a></li>
+        <li><a href="https://www.npmjs.com/package/@open-tw/icon-picker-react">@open-tw/icon-picker-react</a></li>
+        <li><a href="https://www.npmjs.com/package/@open-tw/icon-picker-dom">@open-tw/icon-picker-dom</a></li>
+        <li><a href="https://www.npmjs.com/package/@open-tw/icon-provider-lucide">@open-tw/icon-provider-lucide</a></li>
+        <li><a href="https://github.com/open-tw/icon-picker">Source on GitHub</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

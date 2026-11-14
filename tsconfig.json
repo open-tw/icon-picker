@@ -1,0 +1,38 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@open-tw/icon-picker-core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@open-tw/icon-picker-dom": [
+        "./packages/dom/src/index.ts"
+      ],
+      "@open-tw/icon-provider-lucide": [
+        "./packages/provider-lucide/src/index.ts"
+      ],
+      "@open-tw/icon-provider-lucide/component-names": [
+        "./packages/provider-lucide/src/component-names.ts"
+      ],
+      "@open-tw/icon-picker-react": [
+        "./packages/react/src/index.ts"
+      ]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "packages/*/src",
+    "packages/*/test",
+    "vitest.config.ts"
+  ]
+}
