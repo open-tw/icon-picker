@@ -1,6 +1,6 @@
 {
   "name": "@open-tw/icon-provider-lucide",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lucide icon provider for @open-tw/icon-picker-core (data generated at build time).",
   "keywords": [
     "icon-picker",

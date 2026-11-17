@@ -1,6 +1,6 @@
 {
   "name": "@open-tw/icon-picker-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React adapter for @open-tw/icon-picker-core (React 18 and 19).",
   "keywords": [
     "icon-picker",

@@ -1,6 +1,6 @@
 {
   "name": "@open-tw/icon-picker-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Headless, framework-agnostic icon picker core.",
   "keywords": [
     "icon-picker",

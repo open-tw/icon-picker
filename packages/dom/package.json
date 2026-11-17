@@ -1,6 +1,6 @@
 {
   "name": "@open-tw/icon-picker-dom",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vanilla DOM helpers for @open-tw/icon-picker-core: renderIcon, mountIcon.",
   "keywords": [
     "icon-picker",
