@@ -1,6 +1,6 @@
 name: Demo
 
-# Deploys recipes/vanilla and recipes/react to GitHub Pages.
+# Deploys recipes/vanilla, recipes/react and recipes/vue to GitHub Pages.
 # Repo Settings → Pages → Source must be set to "GitHub Actions".
 
 on:
@@ -31,6 +31,7 @@ jobs:
       # Recipes alias the packages to their src, so no package build is needed.
       - run: pnpm --filter @open-tw/recipe-vanilla exec vite build --base /icon-picker/vanilla/ --outDir ../../_site/vanilla --emptyOutDir
       - run: pnpm --filter @open-tw/recipe-react exec vite build --base /icon-picker/react/ --outDir ../../_site/react --emptyOutDir
+      - run: pnpm --filter @open-tw/recipe-vue exec vite build --base /icon-picker/vue/ --outDir ../../_site/vue --emptyOutDir
       - run: cp .github/pages/index.html _site/index.html
       - uses: actions/upload-pages-artifact@v3
         with:

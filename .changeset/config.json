@@ -7,6 +7,7 @@
       "@open-tw/icon-picker-core",
       "@open-tw/icon-picker-dom",
       "@open-tw/icon-picker-react",
+      "@open-tw/icon-picker-vue",
       "@open-tw/icon-provider-lucide"
     ]
   ],

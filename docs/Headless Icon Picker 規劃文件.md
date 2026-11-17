@@ -10,12 +10,12 @@ Nov 13, 2026 · @Kao
 
 - 使用者可以搜尋、依分類瀏覽並選取 icon，結果以 `lucide:chart-bar` 這種格式存進資料庫
 - 核心邏輯與 UI 完全分離：不提供任何樣式，由使用端用自家元件組裝畫面
-- React 與 vanilla 共用同一個 core，API 盡量一致（參考 TanStack Table 的設計）
+- React、Vue 3 與 vanilla 共用同一個 core，API 盡量一致（參考 TanStack Table 的設計）
 - 新增 icon 庫只需要新增一個 provider，不必改動 core，也不必遷移既有資料
 
 第一期不做：
 
-- Vue、Svelte 等其他框架的 adapter（架構預留，但不實作）
+- Svelte 等其他框架的 adapter（架構預留，但不實作；Vue 3 adapter 已於後續加入）
 - 綁定特定 UI kit 的正式套件（MUI、Chakra 改以可複製的 recipe 提供）
 - icon 上傳、編輯，以及自訂 icon 的管理後台
 
@@ -46,9 +46,10 @@ Nov 13, 2026 · @Kao
 | `@open-tw/icon-provider-lucide` | Lucide provider，以及在 build time 產生 meta 與 SVG body 的腳本 | `lucide-static` 與 Lucide 官方 metadata（只在 build time 用到） |
 | `@open-tw/icon-picker-dom` | vanilla 用的 `renderIcon()`、`mountIcon()` | core |
 | `@open-tw/icon-picker-react` | `useIconPicker()`、`useIcon()`、`<Icon />`、`IconRegistryProvider` | core；`react` 為 peer dependency |
+| `@open-tw/icon-picker-vue` | `useIconPicker()`、`useIcon()`、`<Icon />`、`provideIconRegistry()`、`createIconPickerPlugin()` | core；`vue` ^3.5 為 peer dependency |
 | `recipes/`（不發佈） | 無樣式的參考 UI，之後加上 MUI、Chakra 的範例 | 複製到使用端專案裡使用 |
 
-虛擬捲動不放進 core，由使用端自行搭配 `@tanstack/react-virtual` 或 `@tanstack/virtual-core`，讓 core 完全不碰 DOM。
+虛擬捲動不放進 core，由使用端自行搭配 `@tanstack/react-virtual`、`@tanstack/vue-virtual` 或 `@tanstack/virtual-core`，讓 core 完全不碰 DOM。
 
 ## Icon 資料層
 

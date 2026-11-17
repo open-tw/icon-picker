@@ -28,6 +28,7 @@ export const workspaceAliases = [
   { find: /^@open-tw\/icon-picker-core$/, replacement: src('./packages/core/src/index.ts') },
   { find: /^@open-tw\/icon-picker-dom$/, replacement: src('./packages/dom/src/index.ts') },
   { find: /^@open-tw\/icon-picker-react$/, replacement: src('./packages/react/src/index.ts') },
+  { find: /^@open-tw\/icon-picker-vue$/, replacement: src('./packages/vue/src/index.ts') },
   { find: /^@open-tw\/icon-provider-lucide\/component-names$/, replacement: src('./packages/provider-lucide/src/component-names.ts') },
   { find: /^@open-tw\/icon-provider-lucide$/, replacement: src('./packages/provider-lucide/src/index.ts') },
 ];

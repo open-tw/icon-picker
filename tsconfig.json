@@ -26,6 +26,9 @@
       ],
       "@open-tw/icon-picker-react": [
         "./packages/react/src/index.ts"
+      ],
+      "@open-tw/icon-picker-vue": [
+        "./packages/vue/src/index.ts"
       ]
     },
     "jsx": "react-jsx"

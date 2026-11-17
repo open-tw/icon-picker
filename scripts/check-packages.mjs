@@ -18,7 +18,7 @@ const pnpm = process.env.npm_execpath?.includes('pnpm')
   ? [process.execPath, process.env.npm_execpath]
   : ['pnpm'];
 
-const packages = ['core', 'dom', 'react', 'provider-lucide'];
+const packages = ['core', 'dom', 'react', 'vue', 'provider-lucide'];
 const out = mkdtempSync(join(tmpdir(), 'icon-picker-pack-'));
 const failures = [];
 

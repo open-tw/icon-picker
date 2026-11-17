@@ -4,8 +4,8 @@
   "type": "module",
   "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "build": "tsc -b packages/core packages/dom packages/provider-lucide packages/react",
-    "typecheck": "tsc -b packages/core packages/dom packages/provider-lucide packages/react && tsc -p tsconfig.json && tsc -p packages/react/compat/react18 && tsc -p recipes/vanilla --noEmit && tsc -p recipes/react --noEmit",
+    "build": "tsc -b packages/core packages/dom packages/provider-lucide packages/react packages/vue",
+    "typecheck": "tsc -b packages/core packages/dom packages/provider-lucide packages/react packages/vue && tsc -p tsconfig.json && tsc -p packages/react/compat/react18 && tsc -p recipes/vanilla --noEmit && tsc -p recipes/react --noEmit && pnpm --filter @open-tw/recipe-vue typecheck",
     "test": "vitest run && pnpm --filter @open-tw/icon-picker-react-compat-18 test",
     "test:watch": "vitest",
     "generate:lucide": "pnpm --filter @open-tw/icon-provider-lucide generate",
@@ -13,6 +13,7 @@
     "clean": "rm -rf packages/*/dist packages/*/*.tsbuildinfo",
     "test:react18": "pnpm --filter @open-tw/icon-picker-react-compat-18 test",
     "dev:react": "pnpm --filter @open-tw/recipe-react dev",
+    "dev:vue": "pnpm --filter @open-tw/recipe-vue dev",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "check:packages": "node scripts/check-packages.mjs",

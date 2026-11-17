@@ -1,0 +1,50 @@
+{
+  "name": "@open-tw/icon-picker-vue",
+  "version": "0.1.0",
+  "description": "Vue 3 adapter for @open-tw/icon-picker-core.",
+  "keywords": [
+    "icon-picker",
+    "headless",
+    "icons",
+    "vue",
+    "vue3",
+    "composables"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-tw/icon-picker.git",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/open-tw/icon-picker/tree/main/packages/vue#readme",
+  "bugs": "https://github.com/open-tw/icon-picker/issues",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@open-tw/icon-picker-core": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^2.6.0",
+    "vue": "^3.5.45"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
