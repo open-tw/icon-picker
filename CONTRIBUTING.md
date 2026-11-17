@@ -65,5 +65,16 @@ pnpm check:packages     # after pnpm build: packs each package and checks conten
 GitHub Actions workflows:
 
 - **`ci.yml`**: typecheck, build, tests (React 19 and 18, Vue 3) and `check:packages` on every push and pull request.
-- **`release.yml`**: on `main`, opens a "Version Packages" pull request while changesets are pending. Merging it publishes to npm.
+- **`release.yml`**: on `main`, opens a "Version Packages" pull request while changesets are pending. Merging it tests, builds, runs `check:packages`, then publishes to npm.
 - **`pages.yml`**: builds the recipes and deploys the demo to GitHub Pages.
+
+### npm Trusted Publishing
+
+Publishing uses [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC): there is no `NPM_TOKEN`, and provenance is attached automatically. Only the `publish` job has `id-token: write`.
+
+One-time setup:
+
+1. Repo **Settings → Actions → General**: enable **Allow GitHub Actions to create and approve pull requests**.
+2. On npmjs.com, for **each** package: **Settings → Trusted Publisher → GitHub Actions**, with organization `open-tw`, repository `icon-picker`, workflow `release.yml`, and allow `npm publish`.
+
+A trusted publisher can only be added to a package that already exists on npm. A brand-new package therefore has to be published once by hand (`npm login`, then `pnpm build` and `pnpm publish --access public` in its folder) before step 2.

@@ -1,36 +1,111 @@
 name: Release
 
+# Changesets with npm Trusted Publishing (OIDC) — no NPM_TOKEN.
+# - Pending changesets → opens / updates a "Version Packages" pull request.
+# - That PR merged (no changesets left) → builds, packs and publishes to npm with provenance.
+#
+# Setup (once):
+# - Repo Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+# - npmjs.com → each package → Settings → Trusted Publisher → GitHub Actions:
+#   organization `open-tw`, repository `icon-picker`, workflow `release.yml`, allow `npm publish`.
+#
+# https://changesets.dev/guide/automating · https://docs.npmjs.com/trusted-publishers
+
 on:
   push:
     branches: [main]
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+# Every job declares only the permissions it needs; only `publish` gets id-token: write.
+permissions: {}
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write # npm provenance
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
+  select-mode:
     runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+      publish-plan-artifact-id: ${{ steps.select-mode.outputs.publish-plan-artifact-id }}
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
-          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - id: select-mode
+        uses: changesets/action/select-mode@v2
+
+  version:
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit version changes
+      pull-requests: write # create / update the "Version Packages" PR
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action/version@v2
+        with:
+          script: pnpm version-packages
+
+  pack:
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    outputs:
+      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      # Opens a "Version Packages" PR while changesets are pending; publishes when that PR is merged.
-      - uses: changesets/action@v1
+      - run: pnpm build
+      # Tarball contents, publint and attw.
+      - run: pnpm check:packages
+      - id: pack
+        uses: changesets/action/pack@v2
         with:
-          version: pnpm version-packages
-          publish: pnpm release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          # Signed build provenance on npm (needs id-token: write and package.json "repository").
-          NPM_CONFIG_PROVENANCE: true
+          publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
+
+  publish:
+    needs: pack
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # git tags and GitHub releases
+      id-token: write # npm Trusted Publishing (OIDC) + provenance
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action/publish@v2
+        with:
+          pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
